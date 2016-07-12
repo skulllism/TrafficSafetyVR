@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Game
 {
     private static Game instance = null;
+    
 
     public static Game Instance
     {
@@ -18,6 +19,11 @@ public class Game
     }
 
     public Scene scene { private set; get; }
+
+    public Game()
+    {
+        
+    }
 
     public void SetScene(Scene scene)
     {

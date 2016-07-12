@@ -5,6 +5,7 @@ public class Scene : TSBehavior
 {
     protected override void Awake()
     {
+        base.Awake();
         game.SetScene(this);
     } 
 }
