@@ -19,6 +19,7 @@ public class Game
     }
 
     public Scene scene { private set; get; }
+    public UIActionManager ui { private set; get; }
 
     public Game()
     {
@@ -28,5 +29,10 @@ public class Game
     public void SetScene(Scene scene)
     {
         this.scene = scene;
+    }
+    
+    public void SetUI(UIActionManager ui)
+    {
+        this.ui = ui;
     }
 }
