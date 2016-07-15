@@ -38,5 +38,4 @@ public class UIActionManager : TSBehavior
 
         clearWindow.SetActive(true);
     }
-
 }

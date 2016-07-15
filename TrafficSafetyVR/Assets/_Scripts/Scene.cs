@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using  System.Collections.Generic;
+using System.Collections.Generic;
 using HutongGames.PlayMaker.Actions;
 
 public enum SceneState
@@ -51,6 +51,7 @@ public class Scene : FSMBase
 
     private IEnumerator LoadingEnterState()
     {
+
         yield break;
     }
     #endregion
@@ -60,6 +61,7 @@ public class Scene : FSMBase
     private IEnumerator TitleEnterState()
     {
         game.ui.ActiveTitleWindow();
+
         yield break;
     }
 
