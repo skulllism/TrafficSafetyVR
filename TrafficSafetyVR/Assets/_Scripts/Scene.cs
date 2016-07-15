@@ -13,11 +13,13 @@ public enum SceneState
 
 public class Scene : FSMBase
 {
+    public Player player { private set; get; }
     private List<Actor> actors = new List<Actor>();
 
     protected override void Awake()
     {
         base.Awake();
+        player = FindObjectOfType(typeof(Player)) as Player;
         game.SetScene(this);
     }
 
@@ -77,6 +79,9 @@ public class Scene : FSMBase
 
     private void PlayUpdate()
     {
+        input.ManualUpdate();
+        cam.ManualUpdate();
+        player.ManualUpdate();
         for (int i = 0; i < actors.Count; i++)
         {
             actors[i].ManualUpdate();
