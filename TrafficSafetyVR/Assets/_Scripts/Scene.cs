@@ -6,7 +6,7 @@ using HutongGames.PlayMaker.Actions;
 public enum SceneState
 {
     Loading,
-    Title,
+    Ready,
     Play,
     Clear,
     Fail
@@ -28,14 +28,19 @@ public class Scene : FSMBase
         events = FindObjectsOfType<TSEvent>();
     }
 
+    private void Start()
+    {
+        state = SceneState.Loading;
+    }
+
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(Vector2.zero, new Vector2(100.0f, 100.0f)), "Title"))
-            state = SceneState.Title;
-        if (GUI.Button(new Rect(Vector2.right * 100.0f, new Vector2(100.0f, 100.0f)), "Play"))
-            state = SceneState.Play;
-        if (GUI.Button(new Rect(Vector2.right * 200.0f, new Vector2(100.0f, 100.0f)), "Clear"))
-            state = SceneState.Clear;
+//        if (GUI.Button(new Rect(Vector2.zero, new Vector2(100.0f, 100.0f)), "Ready"))
+//            state = SceneState.Ready;
+//        if (GUI.Button(new Rect(Vector2.right * 100.0f, new Vector2(100.0f, 100.0f)), "Play"))
+//            state = SceneState.Play;
+//        if (GUI.Button(new Rect(Vector2.right * 200.0f, new Vector2(100.0f, 100.0f)), "Clear"))
+//            state = SceneState.Clear;
     }
 
     public void AddActor(Actor actor)
@@ -58,18 +63,26 @@ public class Scene : FSMBase
 
     private IEnumerator LoadingEnterState()
     {
-
+        state = SceneState.Ready;
         yield break;
     }
     #endregion
 
-    #region Title
+    #region Ready
 
-    private IEnumerator TitleEnterState()
+    private IEnumerator ReadyEnterState()
     {
-        game.ui.ActiveTitleWindow();
+        game.ui.ActiveCtrlManualWindow();
 
         yield break;
+    }
+
+    private void ReadyUpdate()
+    {
+        game.ui.ManualUpdate();
+        input.ManualUpdate();
+        cam.ManualUpdate();
+        player.ManualUpdate();
     }
 
     #endregion

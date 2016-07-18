@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TSCamera : FSMBase
 {
+    public Vector3 initRot;
     public Vector2 rotationMax;
     public float mouseSensitivity;
     public float rotSpeed;
@@ -31,7 +32,7 @@ public class TSCamera : FSMBase
                      rotY = -rotationMax.y;
 
         rotX += Input.GetAxis("Mouse X") * mouseSensitivity;
-        Quaternion newRotation = Quaternion.Euler(-rotY, rotX, 0.0f);
+        Quaternion newRotation = Quaternion.Euler(initRot.x-rotY, initRot.y + rotX, 0.0f);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, newRotation, Time.deltaTime * rotSpeed);
     }
 

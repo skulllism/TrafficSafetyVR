@@ -31,7 +31,7 @@ public class Player : Actor
             return;
         }
 
-        transform.forward = new Vector3(ovrCamRig.centerEyeAnchor.transform.forward.x, transform.forward.y, ovrCamRig.centerEyeAnchor.transform.forward.z);
+        transform.forward = new Vector3(airVRCamRig.centerEyeAnchor.transform.forward.x, transform.forward.y, airVRCamRig.centerEyeAnchor.transform.forward.z);
     }
 
     public override void ManualUpdate()
