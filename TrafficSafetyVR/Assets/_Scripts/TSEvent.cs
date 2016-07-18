@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class TSEvent : TSBehavior
 {
@@ -39,11 +40,11 @@ public class TSEvent : TSBehavior
 
     public void Fail()
     {
-        Debug.Log("Fali");
+        failWindow.SetActive(true);
     }
 
     public void Reset()
     {
-        
+        Debug.Log("Reset");
     }
 }

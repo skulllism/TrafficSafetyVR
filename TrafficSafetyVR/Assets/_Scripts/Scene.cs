@@ -19,6 +19,8 @@ public class Scene : FSMBase
     private List<Actor> actors = new List<Actor>();
     private TSEvent[] events;
 
+    private TSEvent failEvent = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -82,7 +84,6 @@ public class Scene : FSMBase
         game.ui.ManualUpdate();
         input.ManualUpdate();
         cam.ManualUpdate();
-        player.ManualUpdate();
     }
 
     #endregion
@@ -117,8 +118,23 @@ public class Scene : FSMBase
             if(events[i].IsClear())
                 continue;
 
-            events[i].Fail();
+            failEvent = events[i];
+            failEvent.Fail();
         }
+        yield break;
+    }
+
+    private void FailUpdate()
+    {
+        game.ui.ManualUpdate();
+        input.ManualUpdate();
+        cam.ManualUpdate();
+    }
+
+    private IEnumerator FailExitState()
+    {
+        failEvent.Reset();
+        failEvent = null;
         yield break;
     }
 
