@@ -35,16 +35,6 @@ public class Scene : FSMBase
         state = SceneState.Loading;
     }
 
-    private void OnGUI()
-    {
-//        if (GUI.Button(new Rect(Vector2.zero, new Vector2(100.0f, 100.0f)), "Ready"))
-//            state = SceneState.Ready;
-//        if (GUI.Button(new Rect(Vector2.right * 100.0f, new Vector2(100.0f, 100.0f)), "Play"))
-//            state = SceneState.Play;
-//        if (GUI.Button(new Rect(Vector2.right * 200.0f, new Vector2(100.0f, 100.0f)), "Clear"))
-//            state = SceneState.Clear;
-    }
-
     public void AddActor(Actor actor)
     {
         if(actors.Contains(actor))
@@ -61,6 +51,28 @@ public class Scene : FSMBase
         actors.Remove(actor);
     }
 
+    private void ActiveEvent()
+    {
+        for (int i = 0; i < events.Length; i++)
+        {
+            if (events[i].IsClear())
+            {
+                events[i].gameObject.SetActive(false);
+                continue;
+            }
+
+            events[i].gameObject.SetActive(true);
+        }
+    }
+
+    private void DisableEvent()
+    {
+        for (int i = 0; i < events.Length; i++)
+        {
+            events[i].gameObject.SetActive(false);
+        }
+    }
+
     #region Loading
 
     private IEnumerator LoadingEnterState()
@@ -74,8 +86,8 @@ public class Scene : FSMBase
 
     private IEnumerator ReadyEnterState()
     {
+        DisableEvent();
         game.ui.ActiveCtrlManualWindow();
-
         yield break;
     }
 
@@ -90,8 +102,11 @@ public class Scene : FSMBase
 
     #region Play
 
+
+
     private IEnumerator PlayEnterState()
     {
+        ActiveEvent();
         game.ui.ActivePlayWindow();
         yield break;
     }
