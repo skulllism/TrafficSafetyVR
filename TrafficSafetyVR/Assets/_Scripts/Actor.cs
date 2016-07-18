@@ -18,6 +18,11 @@ public class Actor : TSBehavior
         SetDirection((point - transform.position).normalized);
     }
 
+    public void SetAccel(float accel)
+    {
+        this.accel = accel;
+    }
+
     public void Accelate()
     {
         if(accel >= 1.0f)
@@ -28,6 +33,11 @@ public class Actor : TSBehavior
 
     public void Decelerate()
     {
+        if (accel < 0.0f)
+        {
+            accel = 0.0f;
+            return;
+        }
         if(accel <= 0.0f)
             return;
 
