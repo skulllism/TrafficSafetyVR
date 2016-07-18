@@ -8,19 +8,24 @@ public enum SceneState
     Loading,
     Title,
     Play,
-    Clear
+    Clear,
+    Fail
 }
 
 public class Scene : FSMBase
 {
     public Player player { private set; get; }
+
     private List<Actor> actors = new List<Actor>();
+    private TSEvent[] events;
 
     protected override void Awake()
     {
         base.Awake();
         player = FindObjectOfType(typeof(Player)) as Player;
         game.SetScene(this);
+
+        events = FindObjectsOfType<TSEvent>();
     }
 
     private void OnGUI()
@@ -86,6 +91,22 @@ public class Scene : FSMBase
         {
             actors[i].ManualUpdate();
         }
+    }
+
+    #endregion
+
+    #region Fail
+
+    private IEnumerator FailEnterState()
+    {
+        for (int i = 0; i < events.Length; i++)
+        {
+            if(events[i].IsClear())
+                continue;
+
+            events[i].Fail();
+        }
+        yield break;
     }
 
     #endregion
