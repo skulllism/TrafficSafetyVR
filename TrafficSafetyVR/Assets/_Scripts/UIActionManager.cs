@@ -62,4 +62,9 @@ public class UIActionManager : TSBehavior
 
         clearWindow.SetActive(true);
     }
+
+    public void GoToPlayScene()
+    {
+        game.scene.state = SceneState.Play;
+    }
 }

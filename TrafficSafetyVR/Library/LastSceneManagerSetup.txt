@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
 - path: Assets/_Scenes/OnAirVRTest.unity
-=======
-- path: Assets/_Scenes/Main2.unity
->>>>>>> 66c73ec4431d911aa953d703da86192d65416010
   isLoaded: 1
   isActive: 1
