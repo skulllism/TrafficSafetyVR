@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TSEvent : TSBehavior
 {
@@ -10,11 +11,13 @@ public class TSEvent : TSBehavior
     public Vector3 startPos;
     public GameObject failWindow;
 
-    private bool clear = false;
+    public TSEventGazeTarget[] gazeEvent;
 
     private void OnTriggerEnter(Collider enterColl)
     {
         if(!enterColl.CompareTag("Player"))
+            return;
+        if(IsClear())
             return;
 
         GameObject missileObj = Instantiate(missile) as GameObject;
@@ -23,15 +26,15 @@ public class TSEvent : TSBehavior
         tsMissile.Action( missileStartPos, missileTargetPos, missileSpeed); 
     }
 
-    public void Clear()
-    {
-        clear = true;
-        Debug.Log("Clear");
-    }
-
     public bool IsClear()
     {
-        return clear;
+        for (int i = 0; i < gazeEvent.Length; i++)
+        {
+            if (!gazeEvent[i].clear)
+                return false;
+        }
+
+        return true;
     }
 
     public void Fail()
