@@ -10,12 +10,12 @@ public class Actor : TSBehavior
 
     public void SetDirection(Vector3 direction)
     {
-        this.direction = direction.normalized;
+        this.direction = Vector3.Normalize(direction);
     }
 
     public void MakeDirection(Vector3 point)
     {
-        SetDirection((point - transform.position).normalized);
+        SetDirection(point - transform.position);
     }
 
     public void SetAccel(float accel)

@@ -11,6 +11,8 @@ public class TSEvent : TSBehavior
     public float missileSpeed;
     public Vector3 startPos;
     public GameObject failWindow;
+    public Vector3 failOffset;
+    public float failYRot;
 
     public TSEventGazeTarget[] gazeEvent;
 
@@ -21,6 +23,7 @@ public class TSEvent : TSBehavior
         if(IsClear())
             return;
 
+        game.scene.SetFailEvent(this);
         GameObject missileObj = Instantiate(missile) as GameObject;
         TSEventMissile tsMissile = missileObj.GetComponent<TSEventMissile>();
 
@@ -40,6 +43,8 @@ public class TSEvent : TSBehavior
 
     public void Fail()
     {
+        game.ui.baseOffSet = failOffset;
+        game.ui.Rotate(new Vector3(0.0f , failYRot , 0.0f));
         failWindow.SetActive(true);
     }
 

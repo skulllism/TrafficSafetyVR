@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/OVR/Scenes/Cubes.unity
-  isLoaded: 1
-  isActive: 1

@@ -22,6 +22,12 @@ public class UIActionManager : TSBehavior
         game.SetUI(this);
     }
 
+    public void Rotate(Vector3 targetRot)
+    {
+        Quaternion newRot = Quaternion.Euler(targetRot);
+        transform.rotation = newRot;
+    }
+
     public override void ManualUpdate()
     {
         base.ManualUpdate();

@@ -15,6 +15,7 @@ public enum SceneState
 public class Scene : FSMBase
 {
     public Player player { private set; get; }
+    public TSEvent failEvent { private set; get; }
 
     private List<Actor> actors = new List<Actor>();
     private TSEvent[] events;
@@ -56,6 +57,11 @@ public class Scene : FSMBase
         {
             DeleteActor(actors[i]);
         }
+    }
+
+    public void SetFailEvent(TSEvent failEvent)
+    {
+        this.failEvent = failEvent;
     }
 
     private void ActiveEvent()
@@ -133,13 +139,7 @@ public class Scene : FSMBase
 
     private IEnumerator FailEnterState()
     {
-        for (int i = 0; i < events.Length; i++)
-        {
-            if(events[i].IsClear())
-                continue;
-
-            events[i].Fail();
-        }
+        failEvent.Fail();
         yield break;
     }
 
@@ -153,6 +153,7 @@ public class Scene : FSMBase
     private IEnumerator FailExitState()
     {
         DeleteAll();
+        failEvent = null;
         yield break;
     }
 

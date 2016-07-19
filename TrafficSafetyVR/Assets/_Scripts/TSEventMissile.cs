@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TSEventMissile : Actor
 {
+
     private void OnTriggerEnter(Collider enterColl)
     {
         if(!enterColl.CompareTag("Player"))
@@ -22,6 +23,7 @@ public class TSEventMissile : Actor
         MakeDirection(targetPos);
         this.speed = speed;
         SetAccel(1.0f);
+        transform.LookAt(transform.localPosition + direction);
 
         game.scene.AddActor(this);
     }

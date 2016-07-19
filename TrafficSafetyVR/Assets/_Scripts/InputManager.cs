@@ -41,7 +41,7 @@ public class InputManager : TSBehavior
     {
         base.ManualUpdate();
 
-        bool joystick = Mathf.Abs(Input.GetAxis("Horizontal") + Input.GetAxis("Vertical")) > 0 ? true : false;
+        bool joystick = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) > 0 ? true : false;
 
         if (joystick)
         {
