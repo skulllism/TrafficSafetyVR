@@ -19,8 +19,6 @@ public class Scene : FSMBase
     private List<Actor> actors = new List<Actor>();
     private TSEvent[] events;
 
-    private TSEvent failEvent = null;
-
     protected override void Awake()
     {
         base.Awake();
@@ -49,6 +47,15 @@ public class Scene : FSMBase
             return;
 
         actors.Remove(actor);
+        Destroy(actor.gameObject);
+    }
+
+    public void DeleteAll()
+    {
+        for (int i = 0; i < actors.Count; i++)
+        {
+            DeleteActor(actors[i]);
+        }
     }
 
     private void ActiveEvent()
@@ -102,8 +109,6 @@ public class Scene : FSMBase
 
     #region Play
 
-
-
     private IEnumerator PlayEnterState()
     {
         ActiveEvent();
@@ -133,8 +138,7 @@ public class Scene : FSMBase
             if(events[i].IsClear())
                 continue;
 
-            failEvent = events[i];
-            failEvent.Fail();
+            events[i].Fail();
         }
         yield break;
     }
@@ -148,8 +152,7 @@ public class Scene : FSMBase
 
     private IEnumerator FailExitState()
     {
-        failEvent.Reset();
-        failEvent = null;
+        DeleteAll();
         yield break;
     }
 
