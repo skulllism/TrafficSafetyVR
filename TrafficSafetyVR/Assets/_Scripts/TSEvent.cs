@@ -45,6 +45,8 @@ public class TSEvent : TSBehavior
 
     public void Reset()
     {
-        Debug.Log("Reset");
+        failWindow.SetActive(false);
+        game.scene.state = SceneState.Play;
+        game.scene.player.transform.position = startPos;
     }
 }
