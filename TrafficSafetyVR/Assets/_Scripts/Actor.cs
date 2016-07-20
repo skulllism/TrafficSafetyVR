@@ -2,8 +2,15 @@
 using System.Collections;
 using System.Diagnostics;
 
+public enum ActorType
+{
+    Pedestrian,
+    Car
+}
+
 public class Actor : TSBehavior
 {
+    public ActorType type;
     public Vector3 direction { private set; get; }
     public float speed;
     public float accel { private set; get; }

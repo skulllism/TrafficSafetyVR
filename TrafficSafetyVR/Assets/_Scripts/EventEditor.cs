@@ -3,19 +3,19 @@ using System.Collections;
 using UnityEditor;
 
 [CanEditMultipleObjects]
-[CustomEditor(typeof(TSEvent))]
+[CustomEditor(typeof(TSGazeEvent))]
 public class EventEditor : Editor
 {
-    private TSEvent tsEvent;
+    private TSGazeEvent _tsGazeEvent;
     private void OnEnable()
     {
-        tsEvent = target as TSEvent;
+        _tsGazeEvent = target as TSGazeEvent;
     }
     private void OnSceneGUI()
     {
-        Handling(ref tsEvent.missileStartPos,"Missile Start" , Color.red );
-        Handling(ref tsEvent.missileTargetPos, "Missile Target", Color.blue);
-        Handling(ref tsEvent.startPos, "Event Start", Color.green);
+        Handling(ref _tsGazeEvent.missileStartPos,"Missile Start" , Color.red );
+        Handling(ref _tsGazeEvent.missileTargetPos, "Missile Target", Color.blue);
+        Handling(ref _tsGazeEvent.startPos, "Event Start", Color.green);
     }
 
     private void Handling(ref Vector3 target, string label, Color capColor)
@@ -24,7 +24,7 @@ public class EventEditor : Editor
         Vector3 newPos = Handles.PositionHandle(target, Quaternion.identity);
         if (newPos != target)
         {
-            Undo.RecordObject(tsEvent, "Move");
+            Undo.RecordObject(_tsGazeEvent, "Move");
 
             target = newPos;
         }

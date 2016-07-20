@@ -29,6 +29,15 @@ public class TSEventGazeTarget : TSBehavior
     public void GazeButtonDisable()
     {
         _gazeButton.SetActive(false);
+       
+
+    }
+
+    public void Reset()
+    {
+        _gazeButton.SetActive(true);
+        _gazeButtonImage.DOFade(1, 0f);
+        _checkImage.gameObject.SetActive(false);
     }
 
     public void GazeCheck()

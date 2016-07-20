@@ -15,10 +15,10 @@ public enum SceneState
 public class Scene : FSMBase
 {
     public Player player { private set; get; }
-    public TSEvent failEvent { private set; get; }
 
     private List<Actor> actors = new List<Actor>();
-    private TSEvent[] events;
+    private List<TrafficLight> trafficLights = new List<TrafficLight>();
+    private TSGazeEvent[] _gazeEvents;
 
     protected override void Awake()
     {
@@ -26,12 +26,28 @@ public class Scene : FSMBase
         player = FindObjectOfType(typeof(Player)) as Player;
         game.SetScene(this);
 
-        events = FindObjectsOfType<TSEvent>();
+        _gazeEvents = FindObjectsOfType<TSGazeEvent>();
     }
 
     private void Start()
     {
         state = SceneState.Loading;
+    }
+
+    public void AddTrafficLight(TrafficLight trafficLight)
+    {
+        if (trafficLights.Contains(trafficLight))
+            return;
+
+        trafficLights.Add(trafficLight);
+    }
+
+    public void DeleteTrafficLight(TrafficLight trafficLight)
+    {
+        if (!trafficLights.Contains(trafficLight))
+            return;
+
+        trafficLights.Remove(trafficLight);
     }
 
     public void AddActor(Actor actor)
@@ -59,30 +75,34 @@ public class Scene : FSMBase
         }
     }
 
-    public void SetFailEvent(TSEvent failEvent)
+    public void GoToFail(GameObject failWindow , Vector3 uiOffset , float rotY)
     {
-        this.failEvent = failEvent;
+        this.failWindow = failWindow;
+        game.ui.baseOffSet = uiOffset;
+        game.ui.Rotate(new Vector3(0.0f, rotY, 0.0f));
+        failWindow.SetActive(true);
+        state = SceneState.Fail;
     }
 
     private void ActiveEvent()
     {
-        for (int i = 0; i < events.Length; i++)
+        for (int i = 0; i < _gazeEvents.Length; i++)
         {
-            if (events[i].IsClear())
+            if (_gazeEvents[i].IsClear())
             {
-                events[i].gameObject.SetActive(false);
+                _gazeEvents[i].gameObject.SetActive(false);
                 continue;
             }
 
-            events[i].gameObject.SetActive(true);
+            _gazeEvents[i].gameObject.SetActive(true);
         }
     }
 
     private void DisableEvent()
     {
-        for (int i = 0; i < events.Length; i++)
+        for (int i = 0; i < _gazeEvents.Length; i++)
         {
-            events[i].gameObject.SetActive(false);
+            _gazeEvents[i].gameObject.SetActive(false);
         }
     }
 
@@ -90,6 +110,7 @@ public class Scene : FSMBase
 
     private IEnumerator LoadingEnterState()
     {
+        game.traffic.Init();
         state = SceneState.Ready;
         yield break;
     }
@@ -131,17 +152,17 @@ public class Scene : FSMBase
         {
             actors[i].ManualUpdate();
         }
+        for (int i = 0; i < trafficLights.Count; i++)
+        {
+            trafficLights[i].ManualUpdate();
+        }
     }
 
     #endregion
 
     #region Fail
 
-    private IEnumerator FailEnterState()
-    {
-        failEvent.Fail();
-        yield break;
-    }
+    private GameObject failWindow;
 
     private void FailUpdate()
     {
@@ -153,7 +174,8 @@ public class Scene : FSMBase
     private IEnumerator FailExitState()
     {
         DeleteAll();
-        failEvent = null;
+        failWindow.SetActive(false);
+        failWindow = null;
         yield break;
     }
 

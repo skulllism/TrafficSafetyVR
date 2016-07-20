@@ -3,22 +3,24 @@ using System.Collections;
 
 public class TSEventMissile : Actor
 {
+    private Vector3 uiOffset;
+    private float uiRotY;
+    private GameObject failWindow;
 
     private void OnTriggerEnter(Collider enterColl)
     {
         if(!enterColl.CompareTag("Player"))
             return;
 
-        Fail();
+        game.scene.GoToFail(failWindow, uiOffset , uiRotY);
     }
 
-    private void Fail()
-    {
-        game.scene.state = SceneState.Fail;
-    }
 
-    public void Action(Vector3 startPos, Vector3 targetPos , float speed)
+    public void Action(GameObject failWindow  , Vector3 uiOffset , float uiRotY, Vector3 startPos, Vector3 targetPos , float speed)
     {
+        this.failWindow = failWindow;
+        this.uiOffset = uiOffset;
+        this.uiRotY = uiRotY;
         transform.position = startPos;
         MakeDirection(targetPos);
         this.speed = speed;

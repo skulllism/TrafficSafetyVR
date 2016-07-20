@@ -20,10 +20,16 @@ public class Game
 
     public Scene scene { private set; get; }
     public UIActionManager ui { private set; get; }
+    public Traffic traffic { private set; get; }
 
     public Game()
     {
         
+    }
+
+    public void SetTraffic(Traffic traffic)
+    {
+        this.traffic = traffic;
     }
 
     public void SetScene(Scene scene)
