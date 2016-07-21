@@ -15,6 +15,11 @@ public class Traffic : TSBehavior
         trafficLightPedestrians = FindObjectsOfType<TrafficLightPedestrian>();
     }
 
+    public void SpawnTrafficWave(int waveIndex)
+    {
+        
+    }
+
     public void Init()
     {
         for (int i = 0; i < trafficLightCars.Length; i++)

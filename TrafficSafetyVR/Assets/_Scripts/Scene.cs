@@ -18,15 +18,12 @@ public class Scene : FSMBase
 
     private List<Actor> actors = new List<Actor>();
     private List<TrafficLight> trafficLights = new List<TrafficLight>();
-    private TSGazeEvent[] _gazeEvents;
 
     protected override void Awake()
     {
         base.Awake();
         player = FindObjectOfType(typeof(Player)) as Player;
         game.SetScene(this);
-
-        _gazeEvents = FindObjectsOfType<TSGazeEvent>();
     }
 
     private void Start()
@@ -75,37 +72,6 @@ public class Scene : FSMBase
         }
     }
 
-    public void GoToFail(GameObject failWindow , Vector3 uiOffset , float rotY)
-    {
-        this.failWindow = failWindow;
-        game.ui.baseOffSet = uiOffset;
-        game.ui.Rotate(new Vector3(0.0f, rotY, 0.0f));
-        failWindow.SetActive(true);
-        state = SceneState.Fail;
-    }
-
-    private void ActiveEvent()
-    {
-        for (int i = 0; i < _gazeEvents.Length; i++)
-        {
-            if (_gazeEvents[i].IsClear())
-            {
-                _gazeEvents[i].gameObject.SetActive(false);
-                continue;
-            }
-
-            _gazeEvents[i].gameObject.SetActive(true);
-        }
-    }
-
-    private void DisableEvent()
-    {
-        for (int i = 0; i < _gazeEvents.Length; i++)
-        {
-            _gazeEvents[i].gameObject.SetActive(false);
-        }
-    }
-
     #region Loading
 
     private IEnumerator LoadingEnterState()
@@ -120,7 +86,6 @@ public class Scene : FSMBase
 
     private IEnumerator ReadyEnterState()
     {
-        DisableEvent();
         game.ui.ActiveCtrlManualWindow();
         yield break;
     }
@@ -138,7 +103,6 @@ public class Scene : FSMBase
 
     private IEnumerator PlayEnterState()
     {
-        ActiveEvent();
         game.ui.ActivePlayWindow();
         yield break;
     }
@@ -162,8 +126,6 @@ public class Scene : FSMBase
 
     #region Fail
 
-    private GameObject failWindow;
-
     private void FailUpdate()
     {
         game.ui.ManualUpdate();
@@ -174,8 +136,6 @@ public class Scene : FSMBase
     private IEnumerator FailExitState()
     {
         DeleteAll();
-        failWindow.SetActive(false);
-        failWindow = null;
         yield break;
     }
 
