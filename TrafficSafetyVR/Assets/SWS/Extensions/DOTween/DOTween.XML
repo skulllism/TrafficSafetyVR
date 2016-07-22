@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>DOTween</name>
@@ -298,13 +298,13 @@
             <summary>Default period used for eases
             <para>Default: 0</para></summary>
         </member>
-        <member name="M:DG.Tweening.DOTween.Init(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{DG.Tweening.LogBehaviour})">
+        <member name="M:DG.Tweening.DOTween.StartMove(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{DG.Tweening.LogBehaviour})">
             <summary>
             Must be called once, before the first ever DOTween call/reference,
             otherwise it will be called automatically and will use default options.
             Calling it a second time won't have any effect.
             <para>You can chain <code>SetCapacity</code> to this method, to directly set the max starting size of Tweeners and Sequences:</para>
-            <code>DOTween.Init(false, false, LogBehaviour.Default).SetCapacity(100, 20);</code>
+            <code>DOTween.StartMove(false, false, LogBehaviour.Default).SetCapacity(100, 20);</code>
             </summary>
             <param name="recycleAllByDefault">If TRUE all new tweens will be set for recycling, meaning that when killed,
             instead of being destroyed, they will be put in a pool and reused instead of creating new tweens. This option allows you to avoid
@@ -818,12 +818,12 @@
             <param name="motionFps">FPS at which the tween should be played</param>
             <param name="customEase">Custom ease function to use</param>
         </member>
-        <member name="T:DG.Tweening.IDOTweenInit">
+        <member name="T:DG.Tweening.IDOTweenStartMove">
             <summary>
-            Used to allow method chaining with DOTween.Init
+            Used to allow method chaining with DOTween.StartMove
             </summary>
         </member>
-        <member name="M:DG.Tweening.IDOTweenInit.SetCapacity(System.Int32,System.Int32)">
+        <member name="M:DG.Tweening.IDOTweenStartMove.SetCapacity(System.Int32,System.Int32)">
             <summary>
             Directly sets the current max capacity of Tweeners and Sequences
             (meaning how many Tweeners and Sequences can be running at the same time),
@@ -968,7 +968,7 @@
         <member name="M:DG.Tweening.TweenExtensions.Flip(DG.Tweening.Tween)">
             <summary>Flips the direction of this tween (backwards if it was going forward or viceversa)</summary>
         </member>
-        <member name="M:DG.Tweening.TweenExtensions.ForceInit(DG.Tweening.Tween)">
+        <member name="M:DG.Tweening.TweenExtensions.ForceStartMove(DG.Tweening.Tween)">
             <summary>Forces the tween to initialize its settings immediately</summary>
         </member>
         <member name="M:DG.Tweening.TweenExtensions.Goto(DG.Tweening.Tween,System.Single,System.Boolean)">
@@ -1106,7 +1106,7 @@
             <summary>Returns TRUE if the tween is complete
             (silently fails and returns FALSE if the tween has been killed)</summary>
         </member>
-        <member name="M:DG.Tweening.TweenExtensions.IsInitialized(DG.Tweening.Tween)">
+        <member name="M:DG.Tweening.TweenExtensions.IsStartMoveialized(DG.Tweening.Tween)">
             <summary>Returns TRUE if this tween has been initialized</summary>
         </member>
         <member name="M:DG.Tweening.TweenExtensions.IsPlaying(DG.Tweening.Tween)">
@@ -1121,7 +1121,7 @@
             Returns a point on a path based on the given path percentage.
             Returns <code>Vector3.zero</code> if this is not a path tween, if the tween is invalid, or if the path is not yet initialized.
             A path is initialized after its tween starts, or immediately if the tween was created with the Path Editor (DOTween Pro feature).
-            You can force a path to be initialized by calling <code>myTween.ForceInit()</code>.
+            You can force a path to be initialized by calling <code>myTween.ForceStartMove()</code>.
             </summary>
             <param name="pathPercentage">Percentage of the path (0 to 1) on which to get the point</param>
         </member>
@@ -1131,7 +1131,7 @@
             Note that this method generates allocations, because it creates a new array.
             Returns <code>NULL</code> if this is not a path tween, if the tween is invalid, or if the path is not yet initialized.
             A path is initialized after its tween starts, or immediately if the tween was created with the Path Editor (DOTween Pro feature).
-            You can force a path to be initialized by calling <code>myTween.ForceInit()</code>.
+            You can force a path to be initialized by calling <code>myTween.ForceStartMove()</code>.
             </summary>
             <param name="subdivisionsXSegment">How many points to create for each path segment (waypoint to waypoint).
             Only used in case of non-Linear paths</param>
@@ -1141,7 +1141,7 @@
             Returns the length of a path.
             Returns -1 if this is not a path tween, if the tween is invalid, or if the path is not yet initialized.
             A path is initialized after its tween starts, or immediately if the tween was created with the Path Editor (DOTween Pro feature).
-            You can force a path to be initialized by calling <code>myTween.ForceInit()</code>.
+            You can force a path to be initialized by calling <code>myTween.ForceStartMove()</code>.
             </summary>
         </member>
         <member name="T:DG.Tweening.LoopType">

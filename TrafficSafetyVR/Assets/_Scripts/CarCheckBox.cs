@@ -6,40 +6,38 @@ public class CarCheckBox : MonoBehaviour
 {
 
     private GameObject myCar;
-    private CarTest myCarTest;
     private splineMove mySplineMove;
 
     void Start()
     {
         myCar = transform.parent.gameObject;
-        myCarTest = myCar.GetComponent<CarTest>();
         mySplineMove = myCar.GetComponent<splineMove>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider enterColl)
     {
-        if (other.CompareTag("Car"))
+        if (enterColl.CompareTag("Car"))
         {
             mySplineMove.Pause();
         }
 
-        else if (other.CompareTag("Crosswalk"))
+        else if (enterColl.CompareTag("Crosswalk"))
         {
-            TrafficLightTest ownTrafficLightTest = other.gameObject.GetComponent<TrafficLightTest>();
-            if (ownTrafficLightTest.redLight == true)
+            TrafficLightCar ownTrafficLightTest = enterColl.gameObject.GetComponent<TrafficLightCar>();
+            if (ownTrafficLightTest.currentSign == SignType.Red)
             {
                 mySplineMove.Pause();
             }
         }
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerStay(Collider enterColl)
     {
 
-        if (other.CompareTag("Crosswalk"))
+        if (enterColl.CompareTag("Crosswalk"))
         {
-            TrafficLightTest ownTrafficLightTest = other.gameObject.GetComponent<TrafficLightTest>();
-            if (ownTrafficLightTest.redLight == false)
+            TrafficLightCar ownTrafficLightTest = enterColl.gameObject.GetComponent<TrafficLightCar>();
+            if (ownTrafficLightTest.currentSign == SignType.Green)
             {
                 mySplineMove.Resume();
             }

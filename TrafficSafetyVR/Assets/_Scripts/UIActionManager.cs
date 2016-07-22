@@ -16,10 +16,17 @@ public class UIActionManager : TSBehavior
 
     public GameObject clearWindow;
 
+    private GameObject failWindow = null;
+
     protected override void Awake()
     {
         base.Awake();
         game.SetUI(this);
+    }
+
+    public void SetFailWindow(GameObject faillWindow)
+    {
+        this.failWindow = faillWindow;
     }
 
     public void Rotate(Vector3 targetRot)
@@ -35,11 +42,25 @@ public class UIActionManager : TSBehavior
         transform.position = Vector3.Slerp(transform.position, game.scene.player.transform.position + baseOffSet, Time.deltaTime*speed);
     }
 
+    public void ActiveFailWindow()
+    {
+        playWindow.SetActive(false);
+        clearWindow.SetActive(false);
+        objectExplainWindow.SetActive(false);
+        ctrlManualWindow.SetActive(false);
+
+        failWindow.SetActive(true);
+    }
+
     public void ActiveCtrlManualWindow()
     {
         playWindow.SetActive(false);
         clearWindow.SetActive(false);
         objectExplainWindow.SetActive(false);
+
+        if(failWindow)
+            failWindow.SetActive(false);
+
         ctrlManualWindow.SetActive(true);
     }
 
@@ -47,8 +68,11 @@ public class UIActionManager : TSBehavior
     {
         playWindow.SetActive(false);
         clearWindow.SetActive(false);
-        objectExplainWindow.SetActive(true);
+        if (failWindow)
+            failWindow.SetActive(false);
         ctrlManualWindow.SetActive(false);
+
+        objectExplainWindow.SetActive(true);
     }
 
     public void ActivePlayWindow()
@@ -56,6 +80,9 @@ public class UIActionManager : TSBehavior
         clearWindow.SetActive(false);
         objectExplainWindow.SetActive(false);
         ctrlManualWindow.SetActive(false);
+
+        if (failWindow)
+            failWindow.SetActive(false);
 
         playWindow.SetActive(true);
     }
@@ -65,6 +92,9 @@ public class UIActionManager : TSBehavior
         objectExplainWindow.SetActive(false);
         ctrlManualWindow.SetActive(false);
         playWindow.SetActive(false);
+
+        if (failWindow)
+            failWindow.SetActive(false);
 
         clearWindow.SetActive(true);
     }

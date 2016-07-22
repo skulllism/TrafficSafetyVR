@@ -23,7 +23,7 @@ public class FilledRenderer3DBuilder {
             var panels = MadPanel.All();
             if (panels.Length == 0) {
                 if (EditorUtility.DisplayDialog(
-                "Init Scene?",
+                "StartMove Scene?",
                 "Scene not initialized for 3D bars. You cannot place new bar without proper initialization. Do it now?",
                 "Yes", "No")) {
                     MadInitTool.ShowWindow();

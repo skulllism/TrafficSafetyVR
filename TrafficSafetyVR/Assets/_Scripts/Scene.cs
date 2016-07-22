@@ -16,13 +16,14 @@ public class Scene : FSMBase
 {
     public Player player { private set; get; }
 
-    private List<Actor> actors = new List<Actor>();
+    private Vehicle[] vehicles;
     private List<TrafficLight> trafficLights = new List<TrafficLight>();
 
     protected override void Awake()
     {
         base.Awake();
         player = FindObjectOfType(typeof(Player)) as Player;
+        vehicles = FindObjectsOfType<Vehicle>();
         game.SetScene(this);
     }
 
@@ -47,28 +48,19 @@ public class Scene : FSMBase
         trafficLights.Remove(trafficLight);
     }
 
-    public void AddActor(Actor actor)
+    public void VehicleReset()
     {
-        if(actors.Contains(actor))
-            return;
-
-        actors.Add(actor);
-    }
-
-    public void DeleteActor(Actor actor)
-    {
-        if(!actors.Contains(actor))
-            return;
-
-        actors.Remove(actor);
-        Destroy(actor.gameObject);
-    }
-
-    public void DeleteAll()
-    {
-        for (int i = 0; i < actors.Count; i++)
+        for (int i = 0; i < vehicles.Length; i++)
         {
-            DeleteActor(actors[i]);
+            vehicles[i].sm.Stop();
+        }
+    }
+
+    public void VehiclePause()
+    {
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].sm.Pause();
         }
     }
 
@@ -104,6 +96,12 @@ public class Scene : FSMBase
     private IEnumerator PlayEnterState()
     {
         game.ui.ActivePlayWindow();
+
+        for(int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].StartMove();
+        }
+
         yield break;
     }
 
@@ -112,9 +110,9 @@ public class Scene : FSMBase
         input.ManualUpdate();
         cam.ManualUpdate();
         player.ManualUpdate();
-        for (int i = 0; i < actors.Count; i++)
+        for (int i = 0; i < vehicles.Length; i++)
         {
-            actors[i].ManualUpdate();
+            vehicles[i].ManualUpdate();
         }
         for (int i = 0; i < trafficLights.Count; i++)
         {
@@ -126,6 +124,13 @@ public class Scene : FSMBase
 
     #region Fail
 
+    private IEnumerator FailEnterState()
+    {
+        game.ui.ActiveFailWindow();
+        VehiclePause();
+        yield break;
+    }
+
     private void FailUpdate()
     {
         game.ui.ManualUpdate();
@@ -135,7 +140,7 @@ public class Scene : FSMBase
 
     private IEnumerator FailExitState()
     {
-        DeleteAll();
+        VehicleReset();
         yield break;
     }
 
