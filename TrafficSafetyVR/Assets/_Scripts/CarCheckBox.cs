@@ -23,8 +23,8 @@ public class CarCheckBox : MonoBehaviour
 
         else if (enterColl.CompareTag("Crosswalk"))
         {
-            TrafficLightCar ownTrafficLightTest = enterColl.gameObject.GetComponent<TrafficLightCar>();
-            if (ownTrafficLightTest.currentSign == SignType.Red)
+            Crosswalk ownTrafficLightTest = enterColl.gameObject.GetComponent<Crosswalk>();
+            if (ownTrafficLightTest.trCar.currentSign == SignType.Red)
             {
                 mySplineMove.Pause();
             }
@@ -36,8 +36,8 @@ public class CarCheckBox : MonoBehaviour
 
         if (enterColl.CompareTag("Crosswalk"))
         {
-            TrafficLightCar ownTrafficLightTest = enterColl.gameObject.GetComponent<TrafficLightCar>();
-            if (ownTrafficLightTest.currentSign == SignType.Green)
+            Crosswalk ownTrafficLightTest = enterColl.gameObject.GetComponent<Crosswalk>();
+            if (ownTrafficLightTest.trCar.currentSign == SignType.Green)
             {
                 mySplineMove.Resume();
             }

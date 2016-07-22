@@ -4,12 +4,11 @@ using System.Collections;
 public class Crosswalk : TSBehavior
 {
     public GameObject failNotGazeWindow;
-    public Vector3 notGazePos;
-    public float notGazeRotY;
-
+    
     public GameObject failJaywalkingWindow;
-    public Vector3 JaywalkingPos;
-    public float JaywalkingRotY;
+
+    public Vector3 failPos;
+    public float failRotY;
 
     public TrafficLightCar trCar { private set; get; }
     public TrafficLightPedestrian trPedestrian { private set; get; }
@@ -31,7 +30,7 @@ public class Crosswalk : TSBehavior
 
         if (trPedestrian.currentSign == SignType.Red)
         {
-            Accident(failJaywalkingWindow , JaywalkingPos , JaywalkingRotY);
+            Accident(failJaywalkingWindow , failPos, failRotY);
             return;
         }
 
@@ -40,7 +39,7 @@ public class Crosswalk : TSBehavior
             return;
 
             //TODO : Check gaze event clear
-            Accident(failNotGazeWindow, notGazePos, notGazeRotY);
+            Accident(failNotGazeWindow, failPos, failRotY);
             return;
         }
 
@@ -52,7 +51,7 @@ public class Crosswalk : TSBehavior
         game.ui.SetFailWindow(failWindow);
         game.ui.Rotate(new Vector3(0.0f , uiRotY, 0.0f));
         game.ui.baseOffSet = uiPos;
-
+        print("dd");
         game.scene.state = SceneState.Fail;
     }
 }
