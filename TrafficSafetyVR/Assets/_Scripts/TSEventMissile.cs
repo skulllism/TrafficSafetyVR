@@ -29,6 +29,6 @@ public class TSEventMissile : Actor
         SetAccel(1.0f);
         transform.LookAt(transform.localPosition + direction);
 
-        game.scene.AddActor(this);
+//        game.scene.AddActor(this);
     }
 }

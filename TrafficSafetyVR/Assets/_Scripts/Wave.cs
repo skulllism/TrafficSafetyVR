@@ -17,8 +17,4 @@ public class Wave : MonoBehaviour
                 sM.Pause(startDelay[i]);
 	    }
 	}
-	
-	void Update () {
-	
-	}
 }

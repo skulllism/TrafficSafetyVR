@@ -1,27 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SWS;
 
-[RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BoxCollider))]
 public class Vehicle : TSBehavior
 {
-    private NavMeshAgent navAgent;
+    public float startDelay;
+
+    public  splineMove sm { private set; get; }
 
     protected override void Awake()
     {
         base.Awake();
-        navAgent = GetComponent<NavMeshAgent>();
+        sm = GetComponent<splineMove>();
+    }
+
+    public void StartMove()
+    {
+        StartCoroutine(WaitForSecondAndGo(startDelay , ()=> {sm.StartMove();}));
     }
 
     public void GoToTarget(Vector3 point , float speed)
     {
-        navAgent.speed = speed;
-        navAgent.SetDestination(point);
+        //TODO : Go To Target
     }
 
     public void GoToPlayer()
     {
         GoToTarget(game.scene.player.transform.position , 10);
+    }
+
+    private IEnumerator WaitForSecondAndGo(float waitTime , System.Action onComplete)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        onComplete();
     }
 
     private void OnTriggerEnter(Collider enterColl)

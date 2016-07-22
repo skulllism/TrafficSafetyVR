@@ -112,12 +112,12 @@ public static class OVRTouchpad
 				case(TouchPhase.Ended):
 					moveAmount -= Input.GetTouch(0).position;
 					HandleInput(touchState, ref moveAmount);
-					touchState = TouchState.Init;
+					touchState = TouchState.StartMove;
 					break;
 				
 				case(TouchPhase.Canceled):
 					Debug.Log( "CANCELLED\n" );
-					touchState = TouchState.Init;
+					touchState = TouchState.StartMove;
 					break;				
 			}
 		}	

@@ -16,20 +16,4 @@ public class TrafficLightPedestrian : TrafficLight
         {
         }
     }
-
-    public void Reset()
-    {
-        game.scene.state = SceneState.Play;
-    }
-
-    private void OnTriggerEnter(Collider enterColl)
-    {
-        if(!enterColl.CompareTag("Player"))
-            return;
-
-        if(currentSign == SignType.Green)
-            return;
-
-        //TODO : Go to fail;
-    }
 }
