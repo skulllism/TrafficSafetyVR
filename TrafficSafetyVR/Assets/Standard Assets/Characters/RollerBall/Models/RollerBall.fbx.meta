@@ -131,7 +131,6 @@ ModelImporter:
     4300046: vehicle_planeProp_wing
     4300048: vehicle_planeProp_left_propBlurPlane1
     4300050: vehicle_planeProp_right_propBlurPlane1
-    4300052: RollerBall
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -142,7 +141,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    pivotNodeName: 
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -159,8 +157,9 @@ ModelImporter:
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
-    useFileUnits: 0
+    useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -186,7 +185,8 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   additionalBone: 0
   userData: 
   assetBundleName: 
+  assetBundleVariant: 
