@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class SlideImage : MonoBehaviour
 {
     [SerializeField]
     private float _duration = 2.5f;
+
+    [SerializeField]
+    private float _delay = 2.5f;
 
     private GameObject lastChild;
     private Image lastChildImage;
@@ -22,7 +26,7 @@ public class SlideImage : MonoBehaviour
     {
         lastChild = transform.GetChild(transform.childCount - 1).gameObject;
         lastChildImage = lastChild.GetComponent<Image>();
-        lastChildImage.DOFade(0, _duration).OnComplete(SlideComplete);
+        lastChildImage.DOFade(0, _duration).OnComplete(SlideComplete).SetDelay(_delay);
     }
 
     void SlideComplete()
