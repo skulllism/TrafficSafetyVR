@@ -222,10 +222,10 @@ public class VREventSystem : MonoBehaviour
             // Create a ray that points forwards from the camera.
             gazeRay = new Ray(_camera.position, _camera.forward);
             RaycastHit hit;
-
             // Do the raycast forweards to see if we hit an interactive item
             if (Physics.Raycast(gazeRay, out hit, _rayLength, ~_exclusionLayers))
             {
+                
                 VRInteractiveItem interactible = hit.collider.GetComponent<VRInteractiveItem>(); //attempt to get the VRInteractiveItem on the hit object
                 _CurrentInteractible = interactible;
                 crosshairFillObj.SetActive(true);
@@ -244,6 +244,7 @@ public class VREventSystem : MonoBehaviour
             {
                 HandleHover();
                 cursor.SetActive(true);
+
             }
 
                 //We update the last interactible item
@@ -454,11 +455,13 @@ public class VREventSystem : MonoBehaviour
 
             
 				
-					cursor.transform.localScale = new Vector3 (distance, distance);
+			    cursor.transform.localScale = new Vector3 (distance, distance);
 			
-				cursor.transform.position = crosshairLocation;
-		
-		} else {
+				// cursor.transform.position = crosshairLocation;
+                // 이거 내가 수정함 줘가튼 개발자새키
+                cursor.transform.localPosition = new Vector3(0, 0, 1);
+
+            } else {
              
 				cursor.transform.localPosition = new Vector3 (0, 0, 1);
 				cursor.transform.localScale = Vector3.one;
