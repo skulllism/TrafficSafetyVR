@@ -51,9 +51,10 @@ public class InputManager : TSBehavior
         else
             KeyUp(InputType.Joystick);
 
-        if(Input.GetMouseButtonDown(0) && !IsKeyDown(InputType.Main))
+
+        if(airVRClient.input.touchpad.GetTouchDown() && !IsKeyDown(InputType.Main))
             KeyDown(InputType.Main);
-        if(Input.GetMouseButtonUp(0) && IsKeyDown(InputType.Main))
+        if(airVRClient.input.touchpad.GetTouchUp() && IsKeyDown(InputType.Main))
             KeyUp(InputType.Main);
     }
 

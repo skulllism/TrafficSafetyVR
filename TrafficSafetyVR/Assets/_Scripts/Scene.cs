@@ -9,7 +9,8 @@ public enum SceneState
     Ready,
     Play,
     Clear,
-    Fail
+    Fail,
+    Accident,
 }
 
 public class Scene : FSMBase
@@ -18,6 +19,7 @@ public class Scene : FSMBase
 
     private Vehicle[] vehicles;
     private List<TrafficLight> trafficLights = new List<TrafficLight>();
+    private Vehicle missile;
 
     protected override void Awake()
     {
@@ -30,6 +32,11 @@ public class Scene : FSMBase
     private void Start()
     {
         state = SceneState.Loading;
+    }
+
+    public void AddMissile(Vehicle vehicle)
+    {
+        this.missile = vehicle;
     }
 
     public void AddTrafficLight(TrafficLight trafficLight)
@@ -124,22 +131,64 @@ public class Scene : FSMBase
 
     #region Fail
 
+    public Vector3 failPos;
+    public Vector3 failTargetPos;
+
     private IEnumerator FailEnterState()
     {
+        cam.transform.position = failPos;
+        cam.transform.LookAt(game.scene.player.transform.position);
+        game.ui.Rotate(cam.transform.rotation.eulerAngles);
+        game.ui.transform.position = cam.transform.position + cam.transform.forward * 2.0f;
         game.ui.ActiveFailWindow();
-        VehiclePause();
+        cam.Reset();
         yield break;
     }
 
     private void FailUpdate()
     {
         input.ManualUpdate();
-        cam.ManualUpdate();
+        player.ManualUpdate();
     }
 
     private IEnumerator FailExitState()
     {
         VehicleReset();
+        yield break;
+    }
+
+    #endregion
+
+    #region Accident
+
+    public float actionTime = 0.1f;
+
+    private float nowTime = 0.0f;
+
+    private IEnumerator AccidentEnterState()
+    {
+        VehiclePause();
+        yield break;
+    }
+
+    private void AccidentUpdate()
+    {
+        input.ManualUpdate();
+        cam.ManualUpdate();
+        missile.ManualUpdate();
+
+        Debug.Log(nowTime);
+        if (nowTime < actionTime)
+        {
+            nowTime += Time.deltaTime;
+            return;
+        }
+
+        state = SceneState.Fail;
+    }
+
+    private IEnumerator AccidentExitState()
+    {
         yield break;
     }
 

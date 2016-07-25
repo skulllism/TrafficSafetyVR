@@ -9,6 +9,7 @@ public class Crosswalk : TSBehavior
 
     public Vector3 failPos;
 
+    public AccidentManager[] accidentMgr { private set; get; }
     public TrafficLightCar trCar { private set; get; }
     public TrafficLightPedestrian trPedestrian { private set; get; }
 
@@ -17,6 +18,7 @@ public class Crosswalk : TSBehavior
         base.Awake();
         trCar = GetComponentInChildren<TrafficLightCar>();
         trPedestrian = GetComponentInChildren<TrafficLightPedestrian>();
+        accidentMgr = GetComponentsInChildren<AccidentManager>();
     }
 
     private void OnTriggerStay(Collider stayColl)
@@ -29,7 +31,15 @@ public class Crosswalk : TSBehavior
 
         if (trPedestrian.currentSign == SignType.Red)
         {
-            Accident(failJaywalkingWindow , failPos);
+            for (int i = 0; i < accidentMgr.Length; i++)
+            {
+                if (accidentMgr[i].InRange)
+                {
+                    accidentMgr[i].Accident();
+                    game.ui.SetFailWindow(failJaywalkingWindow);
+                    break;
+                }
+            }
             return;
         }
 
@@ -38,19 +48,8 @@ public class Crosswalk : TSBehavior
             return;
 
             //TODO : Check gaze event clear
-            Accident(failNotGazeWindow, failPos);
+            game.ui.SetFailWindow(failNotGazeWindow);
             return;
         }
-
-
-    }
-
-    private void Accident(GameObject failWindow, Vector3 uiPos)
-    {
-        game.ui.SetFailWindow(failWindow);
-        game.ui.Rotate(game.scene.player.transform.rotation.eulerAngles);
-        game.ui.transform.position = game.scene.player.transform.position + game.scene.player.transform.forward*uiPos.z +
-                             new Vector3(0.0f, uiPos.y, 0.0f);
-        game.scene.state = SceneState.Fail;
     }
 }
