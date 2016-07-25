@@ -29,8 +29,6 @@ public class TSEventGazeTarget : TSBehavior
     public void GazeButtonDisable()
     {
         _gazeButton.SetActive(false);
-       
-
     }
 
     public void Reset()
