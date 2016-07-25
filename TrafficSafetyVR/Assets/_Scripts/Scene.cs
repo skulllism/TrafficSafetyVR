@@ -133,7 +133,6 @@ public class Scene : FSMBase
 
     private void FailUpdate()
     {
-        game.ui.ManualUpdate();
         input.ManualUpdate();
         cam.ManualUpdate();
     }

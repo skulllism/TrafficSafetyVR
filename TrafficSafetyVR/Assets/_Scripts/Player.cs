@@ -20,7 +20,7 @@ public class Player : Actor
     private void MainButtonCtrl()
     {
         if (input.IsKeyDown(InputType.Main))
-            SetDirection(new Vector3(transform.forward.x, transform.position.y, transform.forward.z));
+            SetDirection(new Vector3(transform.forward.x, transform.forward.y, transform.forward.z));
     }
 
     public void RotateHeadDirection()
