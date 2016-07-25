@@ -18,6 +18,7 @@ public class VREventSystem : MonoBehaviour
      
         public event Action<RaycastHit> OnRaycasthit;                   // This event is called every frame that the user's gaze is over a collider.
 
+        public float cursorMaxScale;
        
    
 	[Tooltip("The Scale of the crosshair")]
@@ -456,9 +457,8 @@ public class VREventSystem : MonoBehaviour
             
 				
 			    cursor.transform.localScale = new Vector3 (distance, distance);
-			
-				// cursor.transform.position = crosshairLocation;
-                // 이거 내가 수정함 줘가튼 개발자새키
+                cursor.transform.localScale = Vector3.one * cursorMaxScale;
+                // cursor.transform.position = crosshairLocation;
                 cursor.transform.localPosition = new Vector3(0, 0, 1);
 
             } else {
