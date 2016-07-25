@@ -51,7 +51,6 @@ public class Crosswalk : TSBehavior
         game.ui.SetFailWindow(failWindow);
         game.ui.Rotate(new Vector3(0.0f , uiRotY, 0.0f));
         game.ui.baseOffSet = uiPos;
-        print("dd");
         game.scene.state = SceneState.Fail;
     }
 }
