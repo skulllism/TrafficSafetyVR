@@ -52,7 +52,7 @@ public class Actor : TSBehavior
     }
 
     public override void ManualUpdate()
-    {
+    {   
         base.ManualUpdate();
 
         transform.position += direction*Time.deltaTime*speed*accel;

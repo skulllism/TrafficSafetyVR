@@ -14,6 +14,9 @@ public class TSCamera : FSMBase
     private float rotY = 0.0f;
     private float rotX = 0.0f;
 
+    private bool accidentMode = false;
+
+
     private void FollowPlayer()
     {
         Vector3 newPos = game.scene.player.transform.position;
@@ -36,10 +39,23 @@ public class TSCamera : FSMBase
         transform.localRotation = Quaternion.Slerp(transform.localRotation, newRotation, Time.deltaTime * rotSpeed);
     }
 
+    public void Reset()
+    {
+        accidentMode = false;
+    }
+
+    public void SetAccidentMode()
+    {
+        accidentMode = true;
+    }
+
     public override void ManualUpdate()
     {
         base.ManualUpdate();
         FollowPlayer();
+
+        if(accidentMode)
+            transform.Rotate(new Vector3(-700.0f, 0.0f , 0.0f) * Time.deltaTime);
 
         if (!Util.IsEditorPlatform())
             return;
