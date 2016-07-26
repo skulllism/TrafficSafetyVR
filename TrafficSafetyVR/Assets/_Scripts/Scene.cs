@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using HutongGames.PlayMaker.Actions;
 using UnityEngine.VR;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public enum SceneState
 {
@@ -162,12 +163,14 @@ public class Scene : FSMBase
     #region Accident
 
     public float actionTime = 0.1f;
-
+    public Image fadeImage;
     private float nowTime = 0.0f;
 
     private IEnumerator AccidentEnterState()
     {
         VehiclePause();
+        print("ghewfewfew");
+        fadeImage.DOFade(0.5f, actionTime);
         yield break;
     }
 
@@ -177,13 +180,18 @@ public class Scene : FSMBase
         cam.ManualUpdate();
         missile.ManualUpdate();
 
-        Debug.Log(nowTime);
+        // Debug.Log(nowTime);
         if (nowTime < actionTime)
         {
             nowTime += Time.deltaTime;
             return;
         }
 
+        ChangeStateToFail();
+    }
+
+    private void ChangeStateToFail()
+    {
         state = SceneState.Fail;
     }
 
