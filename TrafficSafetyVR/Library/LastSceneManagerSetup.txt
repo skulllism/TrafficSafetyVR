@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/_Scenes/testMissile.unity
-=======
-- path: Assets/_Scenes/Main2.unity
->>>>>>> 705d3ff7dadcc25dd73d3537ce7fc23f06eccd05
+- path: Assets/_Scenes/Main3.unity
   isLoaded: 1
   isActive: 1

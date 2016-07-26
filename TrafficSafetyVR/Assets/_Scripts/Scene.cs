@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using HutongGames.PlayMaker.Actions;
+using UnityEngine.VR;
 
 public enum SceneState
 {
@@ -131,13 +132,13 @@ public class Scene : FSMBase
 
     #region Fail
 
-    public Vector3 failPos;
-    public Vector3 failTargetPos;
+    public Vector3 failCamPos;
 
     private IEnumerator FailEnterState()
     {
-        cam.transform.position = failPos;
+        cam.transform.position = player.transform.position+ failCamPos;
         cam.transform.LookAt(game.scene.player.transform.position);
+        InputTracking.Recenter();
         game.ui.Rotate(cam.transform.rotation.eulerAngles);
         game.ui.transform.position = cam.transform.position + cam.transform.forward * 2.0f;
         game.ui.ActiveFailWindow();
@@ -148,7 +149,6 @@ public class Scene : FSMBase
     private void FailUpdate()
     {
         input.ManualUpdate();
-        player.ManualUpdate();
     }
 
     private IEnumerator FailExitState()
