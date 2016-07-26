@@ -11,6 +11,16 @@ public class TrafficLightPedestrian : TrafficLight
         gazeEvents = GetComponentsInChildren<TSEventGazeTarget>();
     }
 
+    public bool IsGazeEventClear()
+    {
+        for (int i = 0; i < gazeEvents.Length; i++)
+        {
+            if (!gazeEvents[i].clear)
+                return false;
+        }
+        return true;
+    }
+
     public override void SetSign(SignType type)
     {
         base.SetSign(type);

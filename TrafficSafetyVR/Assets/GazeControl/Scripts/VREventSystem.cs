@@ -447,7 +447,7 @@ public class VREventSystem : MonoBehaviour
 	void PlaceCursor(){
 		if (_CurrentInteractible != null) {
        
-                float distance = Vector3.Distance(Camera.main.transform.position, _CurrentInteractible.transform.position);
+//                float distance = Vector3.Distance(Camera.main.transform.position, _CurrentInteractible.transform.position);
                 RaycastHit thing;
                 if (Physics.Raycast(gazeRay, out thing))
                 {
@@ -456,7 +456,7 @@ public class VREventSystem : MonoBehaviour
 
             
 				
-			    cursor.transform.localScale = new Vector3 (distance, distance);
+//			    cursor.transform.localScale = new Vector3 (distance, distance);
                 cursor.transform.localScale = Vector3.one * cursorMaxScale;
                 // cursor.transform.position = crosshairLocation;
                 cursor.transform.localPosition = new Vector3(0, 0, 1);
