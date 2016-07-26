@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
-=======
 using GazeInput;
-using HutongGames.PlayMaker.Actions;
->>>>>>> origin/master
 using UnityEngine.VR;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -159,6 +155,7 @@ public class Scene : FSMBase
         game.ui.Rotate(cam.transform.rotation.eulerAngles);
         game.ui.transform.position = cam.transform.position + cam.transform.forward * 2.0f;
         game.ui.ActiveFailWindow();
+
         cam.Reset();
         yield break;
     }
@@ -181,19 +178,20 @@ public class Scene : FSMBase
     #region Accident
 
     public float actionTime = 0.1f;
+    public float fadeTime = 0.1f;
     public Image fadeImage;
     private float nowTime = 0.0f;
 
     private IEnumerator AccidentEnterState()
     {
         VehiclePause();
-        print("ghewfewfew");
-        fadeImage.DOFade(0.5f, actionTime);
         yield break;
     }
 
     private void AccidentUpdate()
     {
+        fadeImage.DOFade(1f, fadeTime);
+
         input.ManualUpdate();
         cam.ManualUpdate();
         missile.ManualUpdate();
@@ -205,6 +203,7 @@ public class Scene : FSMBase
             return;
         }
 
+        fadeImage.DOFade(0f, fadeTime);
         ChangeStateToFail();
     }
 
