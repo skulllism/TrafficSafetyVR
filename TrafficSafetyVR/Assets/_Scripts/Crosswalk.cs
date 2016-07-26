@@ -7,7 +7,7 @@ public class Crosswalk : TSBehavior
     
     public GameObject failJaywalkingWindow;
 
-    public Vector3 failPos;
+    public Vector3 eventStartPos;
 
     public AccidentManager[] accidentMgr { private set; get; }
     public TrafficLightCar trCar { private set; get; }
@@ -45,11 +45,24 @@ public class Crosswalk : TSBehavior
 
         if (trPedestrian.currentSign == SignType.Green)
         {
-            return;
-
-            //TODO : Check gaze event clear
-            game.ui.SetFailWindow(failNotGazeWindow);
-            return;
+            if (!trPedestrian.IsGazeEventClear())
+            {
+                for (int i = 0; i < accidentMgr.Length; i++)
+                {
+                    if (accidentMgr[i].InRange)
+                    {
+                        accidentMgr[i].Accident();
+                        game.ui.SetFailWindow(failNotGazeWindow);
+                        break;
+                    }
+                }
+            }
         }
+    }
+
+    public void Reset()
+    {
+        game.scene.player.transform.position = eventStartPos;
+        game.scene.state = SceneState.Play;
     }
 }

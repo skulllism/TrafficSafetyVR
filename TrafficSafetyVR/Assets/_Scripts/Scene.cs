@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using GazeInput;
+using HutongGames.PlayMaker.Actions;
+>>>>>>> origin/master
 using UnityEngine.VR;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -73,6 +78,14 @@ public class Scene : FSMBase
         }
     }
 
+    public void VehicleStartMove()
+    {
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].sm.StartMove();
+        }
+    }
+
     #region Loading
 
     private IEnumerator LoadingEnterState()
@@ -87,6 +100,7 @@ public class Scene : FSMBase
 
     private IEnumerator ReadyEnterState()
     {
+        airVRCamRig.GetComponent<VREventSystem>().autoClickTime = 2.0f;
         game.ui.ActiveCtrlManualWindow();
         yield break;
     }
@@ -104,7 +118,9 @@ public class Scene : FSMBase
 
     private IEnumerator PlayEnterState()
     {
+        airVRCamRig.GetComponent<VREventSystem>().autoClickTime = 0.01f;
         game.ui.ActivePlayWindow();
+        VehicleStartMove();
 
         for(int i = 0; i < vehicles.Length; i++)
         {
@@ -155,6 +171,8 @@ public class Scene : FSMBase
     private IEnumerator FailExitState()
     {
         VehicleReset();
+        Destroy(missile.gameObject);
+        missile = null;
         yield break;
     }
 
@@ -197,6 +215,7 @@ public class Scene : FSMBase
 
     private IEnumerator AccidentExitState()
     {
+        nowTime = 0.0f;
         yield break;
     }
 

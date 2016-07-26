@@ -20,7 +20,7 @@ public class Player : Actor
     private void MainButtonCtrl()
     {
         if (input.IsKeyDown(InputType.Main))
-            SetDirection(new Vector3(transform.forward.x, transform.forward.y, transform.forward.z));
+            SetDirection(new Vector3(airVRCamRig.centerEyeAnchor.transform.forward.x, transform.forward.y, airVRCamRig.centerEyeAnchor.transform.forward.z));
     }
 
     public void RotateHeadDirection()
@@ -40,10 +40,10 @@ public class Player : Actor
         fsm.ManualUpdate();
         RotateHeadDirection();
 
+        Debug.Log(direction);
+
         if (input.IsKeyDown(InputType.Joystick) || input.IsKeyDown(InputType.Main))
-        {
             Accelate();
-        }
         else
             Decelerate();
 
