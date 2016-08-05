@@ -2,7 +2,6 @@
 using System.Collections;
 using SWS;
 
-[RequireComponent(typeof(BoxCollider))]
 public class Vehicle : Actor
 {
     public float startDelay;
@@ -13,6 +12,11 @@ public class Vehicle : Actor
     {
         base.Awake();
         sm = GetComponent<splineMove>();
+    }
+
+    public void InitVehicle()
+    {
+        
     }
 
     public void StartMove()

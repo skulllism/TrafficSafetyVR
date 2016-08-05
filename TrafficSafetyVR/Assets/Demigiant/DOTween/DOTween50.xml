@@ -22,7 +22,8 @@
             Completes all tweens that have this target as a reference
             (meaning tweens that were started from this target, or that had this target added as an Id)
             and returns the total number of tweens completed
-            (meaning the tweens that don't have infinite loops and were not already complete)
+            (meaning the tweens that don't have inf
+            e loops and were not already complete)
             </summary>
             <param name="withCallbacks">For Sequences only: if TRUE also internal Sequence callbacks will be fired,
             otherwise they will be ignored</param>

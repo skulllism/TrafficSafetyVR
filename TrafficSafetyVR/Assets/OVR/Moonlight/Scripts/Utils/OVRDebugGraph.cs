@@ -46,7 +46,8 @@ public class OVRDebugGraph : MonoBehaviour
 	public OVRInput.RawButton toggleButton = OVRInput.RawButton.Start;
 
 	/// <summary>
-	/// Initialize the debug mode
+	/// Init
+	/// ialize the debug mode
 	/// </summary>
 	void Start()
 	{

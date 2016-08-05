@@ -72,7 +72,7 @@ public class RapidInputDemo : MonoBehaviour
         }
 
         //set speed to an arbitrary small value
-        //otherwise the tween can't be initialized
+        //otherwise the tween can't be Initialized
         move.speed = 0.01f;
         //initialize movement but don't start it yet
         move.StartMove();

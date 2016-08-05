@@ -64,7 +64,8 @@ public class OVRDebugInfo : MonoBehaviour
     float timeLeft       = 0.0f;
 
     /// <summary>
-    /// Managing for UI initialization
+    /// Managing for UI init
+    /// ialization
     /// </summary>
     bool  initUIComponent = false;
     bool  isInited        = false;

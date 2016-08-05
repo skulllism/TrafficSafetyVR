@@ -25,7 +25,7 @@ public class CameraInputDemo : MonoBehaviour
 
 
     //get references at start
-    //initialize movement but don't start it yet
+    //Initialize movement but don't start it yet
     void Start()
     {
         myMove = gameObject.GetComponent<splineMove>();

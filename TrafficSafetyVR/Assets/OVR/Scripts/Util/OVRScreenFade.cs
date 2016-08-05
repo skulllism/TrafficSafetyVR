@@ -33,7 +33,8 @@ public class OVRScreenFade : MonoBehaviour
 	public float fadeTime = 2.0f;
 
 	/// <summary>
-	/// The initial screen color.
+	/// The init
+	/// ial screen color.
 	/// </summary>
 	public Color fadeColor = new Color(0.01f, 0.01f, 0.01f, 1.0f);
 

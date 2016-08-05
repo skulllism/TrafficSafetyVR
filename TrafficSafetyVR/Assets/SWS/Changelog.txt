@@ -2,7 +2,9 @@
 CHANGELOG (v4 and above)
 **************************************
 v5.1.1
-- fixed initial positioning issue with local walkers on bezier paths
+- fixed 
+
+ial positioning issue with local walkers on bezier paths
 - fixed events not being called on local or repositioned bezier paths
 
 v5.1

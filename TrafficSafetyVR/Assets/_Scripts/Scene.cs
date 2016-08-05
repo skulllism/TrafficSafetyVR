@@ -114,9 +114,11 @@ public class Scene : FSMBase
 
     private IEnumerator PlayEnterState()
     {
+        player.transform.FindChild("Model").gameObject.SetActive(false);
+
         airVRCamRig.GetComponent<VREventSystem>().autoClickTime = 0.01f;
         game.ui.ActivePlayWindow();
-        VehicleStartMove();
+        // VehicleStartMove();
 
         for(int i = 0; i < vehicles.Length; i++)
         {
@@ -202,6 +204,10 @@ public class Scene : FSMBase
             nowTime += Time.deltaTime;
             return;
         }
+
+        player.transform.FindChild("Model").gameObject.SetActive(true);
+        player.transform.LookAt(missile.transform);
+        player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y, 0);
 
         fadeImage.DOFade(0f, fadeTime);
         ChangeStateToFail();
