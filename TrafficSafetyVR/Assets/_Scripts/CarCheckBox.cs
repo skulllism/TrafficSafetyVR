@@ -9,8 +9,13 @@ public class CarCheckBox : MonoBehaviour
     private GameObject myCar;
     private splineMove mySplineMove;
 
+<<<<<<< HEAD
     public float originSpeed;
     public float currentSpeed;
+=======
+    private float originSpeed;
+    private float currentSpeed;
+>>>>>>> e71ea167f48478bef009394e3e6445ede94c9f73
 
     public float cycle = 0.1f;
     public float degree = 1.5f;

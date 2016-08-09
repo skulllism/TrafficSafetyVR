@@ -35,6 +35,11 @@ public class Vehicle : Actor
         Reset();
     }
 
+    public void InitVehicle()
+    {
+        
+    }
+
     public void StartMove()
     {
         StartCoroutine(WaitForSecondAndGo(startDelay , ()=> {sm.StartMove();}));
