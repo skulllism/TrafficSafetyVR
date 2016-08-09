@@ -29,7 +29,7 @@ public class PathInputDemo : MonoBehaviour
 
 
     //get references at start
-    //initialize movement but don't start it yet
+    //Iniialize movement but don't start it yet
     void Start()
     {
         animator = GetComponent<Animator>();

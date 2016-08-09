@@ -19,6 +19,7 @@ public class Traffic : TSBehavior
     {
         for (int i = 0; i < trafficLightCars.Length; i++)
         {
+            trafficLightCars[i].SetSign(SignType.Green);
             game.scene.AddTrafficLight(trafficLightCars[i]); 
         }
 
@@ -26,6 +27,7 @@ public class Traffic : TSBehavior
         {
             game.scene.AddTrafficLight(trafficLightPedestrians[i]);
         }
+        
     }
 
     public TrafficLightCar FindNearTrafficLightCar(Actor actor)

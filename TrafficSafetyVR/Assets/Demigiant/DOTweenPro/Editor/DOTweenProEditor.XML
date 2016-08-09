@@ -11,7 +11,8 @@
         </member>
         <member name="M:DG.DOTweenEditor.Core.StylePalette.Custom.StartMove">
             <summary>
-            Needs to be overridden in order to initialize new styles added from inherited classes
+            Needs to be overridden in order to 
+            ialize new styles added from inherited classes
             </summary>
         </member>
     </members>

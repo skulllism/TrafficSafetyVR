@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using GazeInput;
-using HutongGames.PlayMaker.Actions;
 using UnityEngine.VR;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public enum SceneState
 {
@@ -61,6 +62,7 @@ public class Scene : FSMBase
     {
         for (int i = 0; i < vehicles.Length; i++)
         {
+            vehicles[i].sm.ResetToStart();
             vehicles[i].sm.Stop();
         }
     }
@@ -86,6 +88,11 @@ public class Scene : FSMBase
     private IEnumerator LoadingEnterState()
     {
         game.traffic.Init();
+        game.container.LoadVehicleData();
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].InitVehicle();
+        }
         state = SceneState.Ready;
         yield break;
     }
@@ -113,9 +120,11 @@ public class Scene : FSMBase
 
     private IEnumerator PlayEnterState()
     {
+        player.transform.FindChild("Model").gameObject.SetActive(false);
+
         airVRCamRig.GetComponent<VREventSystem>().autoClickTime = 0.01f;
         game.ui.ActivePlayWindow();
-        VehicleStartMove();
+        // VehicleStartMove();
 
         for(int i = 0; i < vehicles.Length; i++)
         {
@@ -154,6 +163,7 @@ public class Scene : FSMBase
         game.ui.Rotate(cam.transform.rotation.eulerAngles);
         game.ui.transform.position = cam.transform.position + cam.transform.forward * 2.0f;
         game.ui.ActiveFailWindow();
+
         cam.Reset();
         yield break;
     }
@@ -176,7 +186,8 @@ public class Scene : FSMBase
     #region Accident
 
     public float actionTime = 0.1f;
-
+    public float fadeTime = 0.1f;
+    public Image fadeImage;
     private float nowTime = 0.0f;
 
     private IEnumerator AccidentEnterState()
@@ -187,17 +198,29 @@ public class Scene : FSMBase
 
     private void AccidentUpdate()
     {
+        fadeImage.DOFade(1f, fadeTime);
+
         input.ManualUpdate();
         cam.ManualUpdate();
         missile.ManualUpdate();
 
-        Debug.Log(nowTime);
+        // Debug.Log(nowTime);
         if (nowTime < actionTime)
         {
             nowTime += Time.deltaTime;
             return;
         }
 
+        player.transform.FindChild("Model").gameObject.SetActive(true);
+        player.transform.LookAt(missile.transform);
+        player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y, 0);
+
+        fadeImage.DOFade(0f, fadeTime);
+        ChangeStateToFail();
+    }
+
+    private void ChangeStateToFail()
+    {
         state = SceneState.Fail;
     }
 

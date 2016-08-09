@@ -38,7 +38,7 @@ namespace SWS
         //method override for root motion on the animator
         void OnAnimatorMove()
         {
-            //init variables
+            //Initvariables
             float speed = 0f;
             float angle = 0f;
 

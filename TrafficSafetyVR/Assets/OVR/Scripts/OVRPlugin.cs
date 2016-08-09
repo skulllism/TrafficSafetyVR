@@ -235,7 +235,8 @@ internal static class OVRPlugin
 		PositionSupported,
 		PositionTracked,
 		PowerSaving,
-		Initialized,
+
+        Initialized,
 		HMDPresent,
 		UserPresent,
 		HasVrFocus,

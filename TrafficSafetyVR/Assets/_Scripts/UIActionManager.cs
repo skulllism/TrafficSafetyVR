@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Specialized;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class UIActionManager : TSBehavior
 {
@@ -15,6 +17,13 @@ public class UIActionManager : TSBehavior
     public GameObject playWindow;
 
     public GameObject clearWindow;
+
+    
+    public float windowFadeDelay;
+    public float windowScaleTime;
+    public float windowFadeTime;
+
+
 
     private GameObject failWindow = null;
 
@@ -50,6 +59,13 @@ public class UIActionManager : TSBehavior
         ctrlManualWindow.SetActive(false);
 
         failWindow.SetActive(true);
+
+        failWindow.transform.DOScale(0f, windowScaleTime).From().SetDelay(windowFadeDelay);
+        Image[] failWindowImages = failWindow.GetComponentsInChildren<Image>();
+        for (int i = 0; i < failWindowImages.Length; i++)
+        {
+            failWindowImages[i].DOFade(0f, windowFadeTime).From().SetDelay(windowFadeDelay);
+        }
     }
 
     public void ActiveCtrlManualWindow()

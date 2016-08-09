@@ -59,7 +59,8 @@ public class OVRPlayerController : MonoBehaviour
 	public float RotationRatchet = 45.0f;
 
 	/// <summary>
-	/// If true, reset the initial yaw of the player controller when the Hmd pose is recentered.
+	/// If true, reset the init
+	/// ial yaw of the player controller when the Hmd pose is recentered.
 	/// </summary>
 	public bool HmdResetsY = true;
 

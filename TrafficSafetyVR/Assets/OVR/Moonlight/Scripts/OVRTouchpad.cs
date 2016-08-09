@@ -57,7 +57,8 @@ public static class OVRTouchpad
 	/// </summary>
 	enum TouchState
 	{
-		Init,
+		
+        Init,
 	   	Down,
 	   	Stationary,
 	   	Move,

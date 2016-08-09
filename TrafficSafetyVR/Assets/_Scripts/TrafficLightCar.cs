@@ -14,7 +14,7 @@ public class TrafficLightCar : TrafficLight
     {
         base.Awake();
         trafficPedestrians = GetComponentsInChildren<TrafficLightPedestrian>();
-        SetSign(SignType.Green);
+        
     }
 
     public override void SetSign(SignType type)

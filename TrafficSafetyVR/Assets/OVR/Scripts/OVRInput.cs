@@ -1752,7 +1752,7 @@ public static class OVRInput
 		{
 			controllerType = Controller.Gamepad;
 
-			initialized = OVR_GamepadController_Initialize();
+            initialized = OVR_GamepadController_Initialize();
 		}
 
 		~OVRControllerGamepadDesktop()

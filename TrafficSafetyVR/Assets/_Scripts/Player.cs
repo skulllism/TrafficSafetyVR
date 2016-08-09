@@ -40,7 +40,7 @@ public class Player : Actor
         fsm.ManualUpdate();
         RotateHeadDirection();
 
-        Debug.Log(direction);
+        // Debug.Log(direction);
 
         if (input.IsKeyDown(InputType.Joystick) || input.IsKeyDown(InputType.Main))
             Accelate();

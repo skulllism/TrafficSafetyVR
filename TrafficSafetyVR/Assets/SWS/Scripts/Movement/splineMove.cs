@@ -18,6 +18,7 @@ namespace SWS
     [AddComponentMenu("Simple Waypoint System/splineMove")]
     public class splineMove : MonoBehaviour
     {
+        private Vehicle vehicle;
         /// <summary>
         /// Path component to use for movement.
         /// <summary>
@@ -157,6 +158,8 @@ namespace SWS
         {
             if (onStart)
                 StartMove();
+
+            vehicle = GetComponent<Vehicle>();
         }
 
 
@@ -307,6 +310,7 @@ namespace SWS
 
         private void ReachedEnd()
         {
+            vehicle.Reset();
             //each looptype has specific properties
             switch (loopType)
             {

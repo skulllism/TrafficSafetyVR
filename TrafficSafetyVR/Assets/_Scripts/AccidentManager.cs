@@ -22,6 +22,7 @@ public class AccidentManager : TSBehavior
         Vehicle newMissile = GameObject.Instantiate(missile).GetComponent<Vehicle>();
         newMissile.transform.position = transform.position + missailCreatePos ;
         newMissile.GoToPlayer();
+        cam.SetAccidentMode();
         game.scene.state = SceneState.Accident;
     }
 
